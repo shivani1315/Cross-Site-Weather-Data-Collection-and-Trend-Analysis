@@ -5,7 +5,7 @@ This project focuses on **scraping, collecting, and analyzing hourly weather dat
 The aim is to compare datasets from different sources and visualize their variations using heatmaps and comparative plots.
 
 ## Data Sources
-- **[Timeanddate.com](https://www.timeanddate.com/)** → Hourly historical and real-time weather (temperature, humidity, wind speed, etc.)  
+- **[Visual Crossing](https://www.visualcrossing.com/)** → Hourly historical and real-time weather (temperature, humidity, wind speed, etc.)  
 - **[Meteostat](https://meteostat.net/)** → Weather data via latitude and longitude  
 - **[Wunderground](https://www.wunderground.com/)** → Weather data from nearby personal weather stations / airports  
 
