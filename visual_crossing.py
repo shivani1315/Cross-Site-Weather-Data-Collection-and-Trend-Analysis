@@ -36,3 +36,53 @@ csv_filename = f"visualcrossing_haldwani_{target_date}.csv"
 df.to_csv(csv_filename, index=False)
 print(f"Data saved to {csv_filename}")
 print(df.head())
+
+# Visualization
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+from datetime import datetime
+
+# ===== Example API Data =====
+# Yahan apna actual API response ka data daal do
+hours = data["days"][0]["hours"]
+
+# Create DataFrame
+df = pd.DataFrame(hours)
+
+# ---- Date Handling ----
+# Agar datetime me sirf time ho, to date attach karo
+date_str = data["days"][0]["datetime"]  # e.g. "2025-08-01"
+if len(df["datetime"].iloc[0]) <= 8:  # sirf time hai
+    df["datetime"] = pd.to_datetime(date_str + " " + df["datetime"])
+else:  # already date + time hai
+    df["datetime"] = pd.to_datetime(df["datetime"])
+
+# Sort by datetime
+df = df.sort_values(by="datetime")
+
+# ==== Parameters to Plot ====
+params = {
+    "temp": "Temperature (°C)",
+    "humidity": "Humidity (%)",
+    "windspeed": "Wind Speed (km/h)",
+    "precip": "Precipitation (mm)",
+    "cloudcover": "Cloud Cover (%)"
+}
+
+# ==== Plot Each Parameter ====
+for col, label in params.items():
+    plt.figure(figsize=(8, 4))
+    plt.plot(df["datetime"], df[col], marker="o")
+    plt.title(f"{label} vs Time")
+    plt.xlabel("Time")
+    plt.ylabel(label)
+    plt.grid(True)
+
+    # Format X-axis for date + time
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%m-%d %H:%M"))
+    plt.xticks(rotation=45)
+
+    plt.tight_layout()
+    plt.show()
+
